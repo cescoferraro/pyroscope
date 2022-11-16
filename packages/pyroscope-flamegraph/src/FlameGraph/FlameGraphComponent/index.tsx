@@ -1,30 +1,29 @@
 /* eslint-disable no-unused-expressions */
-import React, { useCallback, useRef } from 'react';
-import clsx from 'clsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo } from '@fortawesome/free-solid-svg-icons/faRedo';
+import { faCompressAlt } from '@fortawesome/free-solid-svg-icons/faCompressAlt';
 import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faHighlighter } from '@fortawesome/free-solid-svg-icons/faHighlighter';
-import { faCompressAlt } from '@fortawesome/free-solid-svg-icons/faCompressAlt';
-import { MenuItem } from '@szhsin/react-menu';
-import useResizeObserver from '@react-hook/resize-observer';
-import { Maybe } from 'true-myth';
-import debounce from 'lodash.debounce';
+import { faRedo } from '@fortawesome/free-solid-svg-icons/faRedo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flamebearer } from '@pyroscope/models/src';
-import styles from './canvas.module.css';
-import Flamegraph from './Flamegraph';
-import Highlight from './Highlight';
-import ContextMenuHighlight from './ContextMenuHighlight';
-import FlamegraphTooltip from '../../Tooltip/FlamegraphTooltip';
-import ContextMenu from './ContextMenu';
-import LogoLink from './LogoLink';
-import { SandwichIcon, HeadFirstIcon, TailFirstIcon } from '../../Icons';
-import { PX_PER_LEVEL } from './constants';
-import Header from './Header';
-import { FlamegraphPalette } from './colorPalette';
-import type { ViewTypes } from './viewTypes';
+import useResizeObserver from '@react-hook/resize-observer';
+import { MenuItem } from '@szhsin/react-menu';
+import clsx from 'clsx';
+import debounce from 'lodash.debounce';
+import React, { useCallback, useRef } from 'react';
+import { Maybe } from 'true-myth';
 import { FitModes, HeadMode, TailMode } from '../../fitMode/fitMode';
+import { HeadFirstIcon, SandwichIcon, TailFirstIcon } from '../../Icons';
+import FlamegraphTooltip from '../../Tooltip/FlamegraphTooltip';
+import styles from './canvas.module.css';
+import { FlamegraphPalette } from './colorPalette';
+import { PX_PER_LEVEL } from './constants';
+import ContextMenu from './ContextMenu';
+import ContextMenuHighlight from './ContextMenuHighlight';
+import Flamegraph from './Flamegraph';
+import Header from './Header';
+import Highlight from './Highlight';
 import indexStyles from './styles.module.scss';
+import type { ViewTypes } from './viewTypes';
 
 interface FlamegraphProps {
   flamebearer: Flamebearer;
@@ -33,7 +32,6 @@ interface FlamegraphProps {
   updateFitMode: (f: FitModes) => void;
   highlightQuery: ConstructorParameters<typeof Flamegraph>[4];
   zoom: ConstructorParameters<typeof Flamegraph>[5];
-  showCredit: boolean;
   selectedItem: Maybe<string>;
 
   onZoom: (bar: Maybe<{ i: number; j: number }>) => void;
@@ -72,7 +70,6 @@ export default function FlameGraphComponent(props: FlamegraphProps) {
     headerVisible = true,
     disableClick = false,
     showSingleLevel = false,
-    showCredit,
     setActiveItem,
     selectedItem,
     updateView,
@@ -367,7 +364,6 @@ export default function FlameGraphComponent(props: FlamegraphProps) {
           onClick={!disableClick ? onClick : undefined}
         />
       </div>
-      {showCredit ? <LogoLink /> : ''}
       {flamegraph && canvasRef && (
         <Highlight
           barHeight={PX_PER_LEVEL}

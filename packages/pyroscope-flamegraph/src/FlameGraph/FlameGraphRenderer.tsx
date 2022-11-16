@@ -5,26 +5,25 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
 
-import React, { Dispatch, SetStateAction, ReactNode, Component } from 'react';
-import clsx from 'clsx';
-import { Maybe } from 'true-myth';
 import { createFF, Flamebearer, Profile } from '@pyroscope/models/src';
 import NoData from '@pyroscope/webapp/javascript/ui/NoData';
-import Graph from './FlameGraphComponent';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore: let's move this to typescript some time in the future
-import ProfilerTable from '../ProfilerTable';
-import Toolbar, { ProfileHeaderProps } from '../Toolbar';
+import clsx from 'clsx';
+import React, { Component, Dispatch, ReactNode, SetStateAction } from 'react';
+import { Maybe } from 'true-myth';
 import {
   calleesProfile,
   callersProfile,
 } from '../convert/sandwichViewProfiles';
-import { DefaultPalette } from './FlameGraphComponent/colorPalette';
-import styles from './FlamegraphRenderer.module.scss';
-import PyroscopeLogo from '../logo-v3-small.svg';
-import decode from './decode';
 import { FitModes } from '../fitMode/fitMode';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: let's move this to typescript some time in the future
+import ProfilerTable from '../ProfilerTable';
+import Toolbar, { ProfileHeaderProps } from '../Toolbar';
+import decode from './decode';
+import Graph from './FlameGraphComponent';
+import { DefaultPalette } from './FlameGraphComponent/colorPalette';
 import { ViewTypes } from './FlameGraphComponent/viewTypes';
+import styles from './FlamegraphRenderer.module.scss';
 
 // Still support old flamebearer format
 // But prefer the new 'profile' one
@@ -139,6 +138,7 @@ class FlameGraphRenderer extends Component<
   // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     showCredit: true,
+    showPyroscopeLogo: false,
   };
 
   constructor(props: FlamegraphRendererProps) {
@@ -568,20 +568,6 @@ class FlameGraphRenderer extends Component<
             {dataUnavailable ? <NoData /> : panes.map((pane) => pane)}
           </div>
         </div>
-
-        {this.props.showPyroscopeLogo && (
-          <div className={styles.createdBy}>
-            Created by
-            <a
-              href="https://twitter.com/PyroscopeIO"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <PyroscopeLogo width="30" height="30" />
-              @PyroscopeIO
-            </a>
-          </div>
-        )}
       </div>
     );
   };
